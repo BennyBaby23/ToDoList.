@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">ToDoList</string>
+    <string name="title_text">Title</string>
+    <string name="subtitle_text">subtitle</string>
+
+
+    <string name="dialog_title">Add A Task</string>
+
+
+
+    <string name="update_dialog_title">Update a ToDo</string>
+    <string name="delete_dialog_title">Delete a ToDo</string>
+
+    <string name="add_todoCRUD">Add</string>
+    <string name="update_todoCRUD">Update</string>
+    <string name="delete_todoCRUD">Delete</string>
+
+
+
+    <string name="cancel">Cancel</string>
+    <string name="add_ToDo_List">ADD YOUR TASK!</string>
+
+
+    <string name="task_prompt">Task:</string>
+    <string name="comment_prompt">Reminder Info:</string>
+
+</resources>
+
+
+
+
+
+

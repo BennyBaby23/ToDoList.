@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1078298482642",
+    "firebase_url": "https://comp3025-f4edf-default-rtdb.firebaseio.com",
+    "project_id": "comp3025-f4edf",
+    "storage_bucket": "comp3025-f4edf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078298482642:android:55af34d3ccf4325a4ada0b",
+        "android_client_info": {
+          "package_name": "COMP3025.f22_WK8"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078298482642-gf4ah51pdik0e8o1i33d0h1oq55tullg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtTIL3kla9D798OC-ppjwzrapwf14T6BQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078298482642-gf4ah51pdik0e8o1i33d0h1oq55tullg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078298482642:android:4a485397cd3479d64ada0b",
+        "android_client_info": {
+          "package_name": "com.mdev.comp3025_wk11"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078298482642-gf4ah51pdik0e8o1i33d0h1oq55tullg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtTIL3kla9D798OC-ppjwzrapwf14T6BQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078298482642-gf4ah51pdik0e8o1i33d0h1oq55tullg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078298482642:android:29e90322bd9f99da4ada0b",
+        "android_client_info": {
+          "package_name": "com.mdev.todolistpart2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078298482642-gf4ah51pdik0e8o1i33d0h1oq55tullg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtTIL3kla9D798OC-ppjwzrapwf14T6BQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078298482642-gf4ah51pdik0e8o1i33d0h1oq55tullg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
