@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import java.lang.Math.abs
 
+//Class for gesture touch listener
 open class CustomTouchListener(context: Context?): OnTouchListener
 {
     private val gestureDetector: GestureDetector

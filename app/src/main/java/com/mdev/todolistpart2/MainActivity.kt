@@ -25,12 +25,15 @@ Version: Android Studio Dolphin | 2021.3.1 for Windows 64-bit */
 
 class MainActivity : AppCompatActivity() {
 
+    //Variable for each class requirement like db and array
     private lateinit var database: DatabaseReference
     private lateinit var ToDosTasks: MutableList<ToDo>
 
+    //Variable for FAB button
     lateinit var addToDoFAB: FloatingActionButton
     lateinit var todosAdapter: ToDoAdapter
 
+    //Main class function
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,63 +44,71 @@ class MainActivity : AppCompatActivity() {
         todosAdapter = ToDoAdapter(ToDosTasks)
 
         todosAdapter.onTodoClick = { tvShow, position ->
-            showCreateTVShowDialog(AlertAction.UPDATE, tvShow, position)
+            showCreateToDoDialog(AlertAction.UPDATE, tvShow, position)
         }
 
         todosAdapter.onTodoSwipeLeft = { tvShow, position ->
-            showCreateTVShowDialog(AlertAction.DELETE, tvShow, position)
+            showCreateToDoDialog(AlertAction.DELETE, tvShow, position)
         }
 
         initializeRecyclerView()
         initializeFAB()
-        addTVShowEventListener(database)
+        addToDoEventListener(database)
+//        deleteToDoEventListener(database)
     }
 
 
+    //function to initialize fab button
     private fun initializeFAB() {
         addToDoFAB = findViewById(R.id.add_List_FAB)
         addToDoFAB.setOnClickListener {
-            showCreateTVShowDialog(AlertAction.ADD, null, null)
+            showCreateToDoDialog(AlertAction.ADD, null, null)
         }
     }
 
+    //function for recycler button
     private fun initializeRecyclerView() {
         val recyclerView: RecyclerView = findViewById(R.id.First_Recycler_View)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = todosAdapter
     }
 
-    fun writeNewTVShow(tvShow: ToDo)
+
+    //Function for crud
+    fun writeNewToDo(toDo: ToDo)
     {
-        database.child("TVShows").child(tvShow.id.toString()).setValue(tvShow)
+        database.child("TVShows").child(toDo.id.toString()).setValue(toDo)
     }
 
-    fun updateTVShows(tvShow: ToDo)
+    //Function for crud
+    fun updateToDo(toDo: ToDo)
     {
-        database.child("TVShows").child(tvShow.id.toString()).setValue(tvShow)
+        database.child("TVShows").child(toDo.id.toString()).setValue(toDo)
     }
 
-    fun deleteTVShow(tvShow: ToDo?)
+    //Function for crud
+    fun deleteToDo(toDo: ToDo?)
     {
-        database.child("TVShows").child(tvShow?.id.toString()).removeValue()
+        database.child("TVShows").child(toDo?.id.toString()).removeValue()
     }
 
-    private fun showCreateTVShowDialog(alertAction: AlertAction, tvShow: ToDo?, position: Int?) {
-        var dialogTitle: String = ""
+    //Function to create new dialog box to confirm alert
+    private fun showCreateToDoDialog(alertAction: AlertAction, toDo: ToDo?, position: Int?) {
+        var reminderTitle: String = ""
         var positiveButtonTitle: String = ""
         var negativeButtonTitle: String = getString(R.string.cancel)
 
         when (alertAction) {
             AlertAction.ADD -> {
-                dialogTitle = getString(R.string.dialog_title)
+                reminderTitle = getString(R.string.dialog_title)
                 positiveButtonTitle = getString(R.string.add_todoCRUD)
             }
             AlertAction.UPDATE -> {
-                dialogTitle = getString(R.string.update_dialog_title)
+                reminderTitle = getString(R.string.update_dialog_title)
                 positiveButtonTitle = getString(R.string.update_todoCRUD)
             }
             AlertAction.DELETE -> {
-                dialogTitle = ""
+                reminderTitle = ""
                 positiveButtonTitle = getString(R.string.delete_todoCRUD)
             }
         }
@@ -105,49 +116,49 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         val view = layoutInflater.inflate(R.layout.add_new_todo_list, null)
 
-        builder.setTitle(dialogTitle)
+        builder.setTitle(reminderTitle)
         builder.setView(view)
 
-        val tvShowTitleTextView = view.findViewById<TextView>(R.id.ToDo_Task)
-        val tvShowTitleEditText = view.findViewById<EditText>(R.id.ToDo_EditText)
-        val studioNameTextView = view.findViewById<TextView>(R.id.Comment)
-        val studioNameEditText = view.findViewById<EditText>(R.id.Comment_EditText)
+        val toDoTaskTextView = view.findViewById<TextView>(R.id.ToDo_Task)
+        val toDoTaskEditText = view.findViewById<EditText>(R.id.ToDo_EditText)
+        val reminderTaskTextView = view.findViewById<TextView>(R.id.Comment)
+        val reminderEditText = view.findViewById<EditText>(R.id.Comment_EditText)
 
         when(alertAction)
         {
             AlertAction.ADD -> {
                 builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
                     dialog.dismiss()
-                    val firstCharTitle = tvShowTitleEditText.text.toString().substring(0,1)
-                    val firstCharStudio = studioNameEditText.text.toString().substring(0,1)
+                    val firstCharTitle = toDoTaskEditText.text.toString().substring(0,1)
+                    val firstCharStudio = reminderEditText.text.toString().substring(0,1)
                     val id = firstCharTitle + firstCharStudio + System.currentTimeMillis().toString()
-                    val newTVShow = ToDo(id, tvShowTitleEditText.text.toString(), studioNameEditText.text.toString())
-                    writeNewTVShow(newTVShow)
+                    val newTVShow = ToDo(id, toDoTaskEditText.text.toString(), reminderEditText.text.toString())
+                    writeNewToDo(newTVShow)
                 }
             }
             AlertAction.UPDATE -> {
 
-                if (tvShow != null) {
-                    tvShowTitleEditText.setText(tvShow?.title)
-                    studioNameEditText.setText(tvShow?.studio)
+                if (toDo != null) {
+                    toDoTaskEditText.setText(toDo?.task)
+                    reminderEditText.setText(toDo?.reminderDate)
                 }
 
                 builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
                     dialog.dismiss()
-                    val newTVShow = ToDo(tvShow?.id, tvShowTitleEditText.text.toString(), studioNameEditText.text.toString())
-                    updateTVShows(newTVShow)
+                    val newToDo = ToDo(toDo?.id, toDoTaskEditText.text.toString(), reminderEditText.text.toString())
+                    updateToDo(newToDo)
                 }
             }
             AlertAction.DELETE -> {
-                tvShowTitleTextView.setText("Delete " + tvShow?.title)
-                tvShowTitleTextView.setTextColor(ContextCompat.getColor(view.context, R.color.red))
-                tvShowTitleEditText.isVisible = false
-                studioNameTextView.setText(R.string.comment_prompt)
-                studioNameEditText.isVisible = false
+                toDoTaskTextView.setText("Delete " + toDo?.task)
+                toDoTaskTextView.setTextColor(ContextCompat.getColor(view.context, R.color.red))
+                toDoTaskEditText.isVisible = false
+                reminderTaskTextView.setText(R.string.comment_prompt)
+                reminderEditText.isVisible = false
 
                 builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
                     dialog.dismiss()
-                    deleteTVShow(tvShow)
+                    deleteToDo(toDo)
                 }
 
                 builder.setNegativeButton(negativeButtonTitle) {dialog, _ ->
@@ -158,30 +169,35 @@ class MainActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    private fun addTVShowEventListener(dbReference: DatabaseReference)
+    //Function to add new ToDoTask
+    private fun addToDoEventListener(dbReference: DatabaseReference)
     {
-        val TVShowListener = object: ValueEventListener {
+        //variable for TodoTask to add to task list
+        val ToDoListener = object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 ToDosTasks.clear()
-                val tvShowDB = dataSnapshot.child("TVShows").children
+                val toDoDB = dataSnapshot.child("TVShows").children
 
-                for(tvShow in tvShowDB)
+                //for adding each new task to database
+                for(toDoTask in toDoDB)
                 {
-                    var newShow = tvShow.getValue(ToDo::class.java)
+                    var newToDo = toDoTask.getValue(ToDo::class.java)
 
-                    if(newShow != null)
+                    if(newToDo != null)
                     {
-                        ToDosTasks.add(newShow)
+                        ToDosTasks.add(newToDo)
                         todosAdapter.notifyDataSetChanged()
                     }
                 }
             }
 
+            //Function for database error
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.w("tvShowError", "loadTVShow:cancelled", databaseError.toException())
+                Log.w("Error", "cancelled", databaseError.toException())
             }
         }
-        dbReference.addValueEventListener(TVShowListener)
+        dbReference.addValueEventListener(ToDoListener)
     }
+
 
 }

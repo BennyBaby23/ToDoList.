@@ -5,22 +5,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
+/*File name: toDoList Assignment part B
+Author Name: Benny Baby
+STUDENT ID : 200469127
+App Description : CREATE A TODOlIST
+Version: Android Studio Dolphin | 2021.3.1 for Windows 64-bit */
 class ToDoAdapter(private val dataSet: MutableList<ToDo>):
     RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
 
+    //Variable for gesture function
     var onTodoClick: ((ToDo, position: Int)-> Unit)? = null
     var onTodoSwipeLeft: ((ToDo, position: Int)-> Unit)? = null
 
+    //function for each gesture on touchListener
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
     {
-        val title: TextView
-        val studio: TextView
+        val task: TextView
+        val reminderDate: TextView
 
         init {
 
-            title = view.findViewById(R.id.ToDo_List)
-            studio = view.findViewById(R.id.comment)
+            task = view.findViewById(R.id.ToDo_List)
+            reminderDate = view.findViewById(R.id.comment)
 
             view.setOnTouchListener(object: CustomTouchListener(view.context){
                 override fun onSwipeLeft() {
@@ -36,6 +42,7 @@ class ToDoAdapter(private val dataSet: MutableList<ToDo>):
         }
     }
 
+    //function for onCreate viewHolder
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.text_row_item, viewGroup, false)
@@ -44,10 +51,11 @@ class ToDoAdapter(private val dataSet: MutableList<ToDo>):
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.title.text = dataSet[position].title // index of the array
-        viewHolder.studio.text = dataSet[position].studio
+        viewHolder.task.text = dataSet[position].task // index of the array
+        viewHolder.reminderDate.text = dataSet[position].reminderDate
     }
 
+    //Function return datasetSize
     override fun getItemCount(): Int {
         return dataSet.size
     }
